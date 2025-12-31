@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clear Supabase Cookies</title>
+</head>
+<body>
+  <h1>Clear Supabase Cookies</h1>
+  <button onclick="clearCookies()">Clear All Supabase Cookies</button>
+  <div id="result"></div>
+
+  <script>
+    function clearCookies() {
+      const cookies = document.cookie.split(';');
+      let cleared = 0;
+      
+      cookies.forEach(cookie => {
+        const name = cookie.split('=')[0].trim();
+        if (name.startsWith('sb-') || name.includes('supabase') || name.includes('auth')) {
+          // Clear cookie by setting it to expire
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;`;
+          cleared++;
+        }
+      });
+
+      // Also clear localStorage
+      Object.keys(localStorage).forEach(key => {
+        if (key.includes('supabase') || key.includes('auth')) {
+          localStorage.removeItem(key);
+          cleared++;
+        }
+      });
+
+      document.getElementById('result').innerHTML = `
+        <p>Cleared ${cleared} cookies/storage items</p>
+        <p>Now refresh the page or go to <a href="/login">/login</a></p>
+      `;
+    }
+
+    // Show current cookies
+    window.onload = function() {
+      const cookies = document.cookie.split(';').filter(c => c.trim());
+      const supabaseCookies = cookies.filter(c => 
+        c.includes('sb-') || c.includes('supabase') || c.includes('auth')
+      );
+      
+      document.getElementById('result').innerHTML = `
+        <h3>Current Supabase Cookies:</h3>
+        <ul>
+          ${supabaseCookies.length > 0 
+            ? supabaseCookies.map(c => `<li>${c}</li>`).join('')
+            : '<li>No Supabase cookies found</li>'
+          }
+        </ul>
+        <p>Total cookies: ${cookies.length}</p>
+      `;
+    };
+  </script>
+</body>
+</html>
+

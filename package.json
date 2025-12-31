@@ -7,7 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "setup:storage": "tsx scripts/setup-storage.ts"
+    "setup:storage": "tsx scripts/setup-storage.ts",
+    "create-admin": "tsx scripts/create-admin.ts",
+    "setup-admin": "tsx scripts/setup-admin-access.ts",
+    "create-super-admin": "tsx scripts/create-super-admin.ts",
+    "diagnose-auth": "tsx scripts/diagnose-auth.ts",
+    "populate-data": "tsx scripts/populate-dummy-data.ts",
+    "check-schema": "tsx scripts/check-schema.ts",
+    "make-bucket-public": "tsx scripts/make-bucket-public.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -27,11 +34,13 @@
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "framer-motion": "^12.23.26",
     "lucide-react": "^0.309.0",
     "next": "^14.2.33",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
